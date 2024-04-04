@@ -9,4 +9,10 @@ class Products extends Model
 {
     use HasFactory;
     protected $table ='products';
+
+    public function getAllProductType($id)
+    {
+        $products = Products::where('id_type', $id)->get();
+        return $products;
+    }
 }

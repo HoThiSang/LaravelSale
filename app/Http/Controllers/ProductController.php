@@ -3,15 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 
 
 class ProductController extends Controller
 {
+    protected $products;
+
+
+    public function __construct()
+    {
+        $this->products = new Products();
+    }
     public function index()
     {
         $products = Products::all();
-        return view('car-list', compact('products'));
+        return view('pages/car-list', compact('products'));
     }
 
     public function create()
@@ -26,20 +34,19 @@ class ProductController extends Controller
     {
         $title = "Product";
         $product = Products::find($id);
-        // dd($car);
-        return view('show', ['product' => $product, 'title' => $title]);
+        return view('pages/show', ['product' => $product, 'title' => $title]);
     }
 
     public function showPricing()
     {
-        return view('pricing');
+        return view('pages/pricing');
     }
 
     public function showProductType($id)
     {
 
-        $products = Products::where('id_type', $id)->get();
-
-        return view('product-type', compact('products'));
+        $products = $this->products->getAllProductType($id);
+        // dd($products);
+        return view('pages/product-type', compact('products'));
     }
 }

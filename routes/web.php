@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -16,9 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('detail');
 
@@ -26,7 +24,7 @@ Route::get('/pricing', [ProductController::class, 'showPricing'])->name('showPri
 
 Route::get('/product-type/{id}', [ProductController::class, 'showProductType'])->name('showProductType');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/checkout', [HomeController::class, 'showCart'])->name('showCart');
 
@@ -34,3 +32,9 @@ Route::get('/login', [UserController::class, 'login'])->name('login');
 
 
 Route::get('/sign-up', [UserController::class, 'signUp'])->name('sign-up');
+
+Route::get('/about-page', [HomeController::class, 'about'])->name('about-page');
+
+Route::get('/contact-page', [HomeController::class, 'contact'])->name('contact-page');
+
+Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');

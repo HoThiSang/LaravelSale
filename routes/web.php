@@ -26,7 +26,6 @@ Route::get('/product-type/{id}', [ProductController::class, 'showProductType'])-
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/checkout', [HomeController::class, 'showCart'])->name('showCart');
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
 
@@ -38,3 +37,10 @@ Route::get('/about-page', [HomeController::class, 'about'])->name('about-page');
 Route::get('/contact-page', [HomeController::class, 'contact'])->name('contact-page');
 
 Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
+
+Route::get('/delete-cart/{id}', [CartController::class, 'deleteCart'])->name('delete-cart');
+
+
+Route::get('/checkout', [HomeController::class, 'showCart'])->name('showCart');
+
+Route::get('/checkouted', [CartController::class, 'checkout'])->name('checkout');

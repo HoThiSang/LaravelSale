@@ -1,10 +1,13 @@
 @extends('layout.master');
 
 @section('content');
+    @if(Session::has('cart'))
+ <div id="alert"></div>
+
 <div class="container">
     <div id="content">
 
-        <form action="#" method="post" class="beta-form-checkout">
+        <form action="{{ route('checkout') }}" method="post" class="beta-form-checkout">
             <div class="row">
                 <div class="col-sm-6">
                     <h4>Đặt hàng</h4>
@@ -12,7 +15,7 @@
 
                     <div class="form-block">
                         <label for="name">Họ tên*</label>
-                        <input type="text" id="name" placeholder="Họ tên" required>
+                        <input type="text" id="user_name" name="user_name" placeholder="Họ tên" required>
                     </div>
                     <div class="form-block">
                         <label>Giới tính </label>
@@ -23,23 +26,23 @@
 
                     <div class="form-block">
                         <label for="email">Email*</label>
-                        <input type="email" id="email" required placeholder="expample@gmail.com">
+                        <input type="email" id="email" name="email" required placeholder="expample@gmail.com">
                     </div>
 
                     <div class="form-block">
                         <label for="adress">Địa chỉ*</label>
-                        <input type="text" id="adress" placeholder="Street Address" required>
+                        <input type="text" id="address" name="address" placeholder="Street Address" required>
                     </div>
 
 
                     <div class="form-block">
                         <label for="phone">Điện thoại*</label>
-                        <input type="text" id="phone" required>
+                        <input type="text" id="phone" name="phone" required>
                     </div>
 
                     <div class="form-block">
                         <label for="notes">Ghi chú</label>
-                        <textarea id="notes"></textarea>
+                        <textarea id="notes" name="note"></textarea>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -48,28 +51,34 @@
                             <h5>Đơn hàng của bạn</h5>
                         </div>
                         <div class="your-order-body" style="padding: 0px 10px">
+                           @foreach($productCarts as $product)
                             <div class="your-order-item">
                                 <div>
-                                    <!--  one item	 -->
                                     <div class="media">
-                                        <img width="25%" src="https://images.foody.vn/res/g116/1154374/prof/s640x400/foody-upload-api-foody-mobile-vu-be14b46e-221027152509.jpeg" alt="" class="pull-left">
+                                        <img width="25%" src="/source/image/product/{{ $product['item']['image'] }}" alt="" class="pull-left">
                                         <div class="media-body">
-                                            <p class="font-large">Men's Belt</p>
-                                            <span class="color-gray your-order-info">Color: Red</span>
-                                            <span class="color-gray your-order-info">Size: M</span>
-                                            <span class="color-gray your-order-info">Qty: 1</span>
+                                            <p class="font-large">{{ $product['item']['name'] }}</p>
+                                                    @if($product['item']['promotion_price']==0)
+                                                      <span class="color-gray your-order-info">Price:     {{ number_format($product['item']['unit_price']) }}</span>
+                                               
+                                                   @else    
+                                            <span class="color-gray your-order-info">Promotion price:  {{ number_format($product['item']['promotion_price']) }}</span>
+                                             @endif
+                                            <span class="color-gray your-order-info">{{ $product['qty'] }}</span>
                                         </div>
                                     </div>
-                                    <!-- end one item -->
+                                    <div>
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
+                            @endforeach
                             <div class="your-order-item">
                                 <div class="pull-left">
                                     <p class="your-order-f18">Tổng tiền:</p>
                                 </div>
                                 <div class="pull-right">
-                                    <h5 class="color-black">$235.00</h5>
+                                    <h5 class="color-black">{{ $cart->totalPrice }}</h5>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -102,11 +111,12 @@
                             </ul>
                         </div>
 
-                        <div class="text-center"><a class="beta-btn primary" href="#">Đặt hàng <i class="fa fa-chevron-right"></i></a></div>
+                        <div class="text-center"><a class="beta-btn primary" href="{{ route('checkout') }}">Đặt hàng <i class="fa fa-chevron-right"></i></a></div>
                     </div> <!-- .your-order -->
                 </div>
             </div>
         </form>
     </div> <!-- #content -->
 </div> <!-- .container -->
+@endif
 @endsection

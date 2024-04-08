@@ -13,13 +13,13 @@
     <link rel="stylesheet" title="style" href="/source/assets/dest/css/style.css">
     <link rel="stylesheet" href="/source/assets/dest/css/animate.css">
     <link rel="stylesheet" title="style" href="/source/assets/dest/css/huong-style.css">
-    @yield('css');
+    @yield('css')
 </head>
 
 <body>
     @include('components.header')
-    @yield('banner');
-    @yield('content');
+    @yield('banner')
+    @yield('content')
     @include('components.footer')
 
 
@@ -78,6 +78,24 @@
                 }
             });
         });
+    </script>
+    <script>
+        // Kiểm tra xem có thông báo thành công từ controller không
+var successMessage = "{{ session('success') }}";
+var errorMessage = "{{ session('error') }}";
+
+// Kiểm tra xem có thông báo thành công không
+if (successMessage) {
+    // Hiển thị hộp thoại thông báo thành công
+    alert(successMessage);
+}
+
+// Kiểm tra xem có thông báo lỗi không
+if (errorMessage) {
+    // Hiển thị hộp thoại thông báo lỗi
+    alert(errorMessage);
+}
+
     </script>
     @yield('js');
 </body>

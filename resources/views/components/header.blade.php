@@ -52,7 +52,7 @@
                            <div class="beta-dropdown cart-body">
                                @foreach($productCarts as $product)
                                <div class="cart-item">
-                                   <a class="cart-item-delete" href=""><i class="fa fa-times"></i>
+                                   <a class="cart-item-delete" href="{{ route('delete-cart', ['id'=>$product['item']['id']])}}"><i class="fa fa-times"></i>
                                    </a>
                                    <div class="media">
                                        <a class="pull-left" href="#"><img src="/source/image/product/{{ $product['item']['image'] }}" alt=""></a>
@@ -60,7 +60,8 @@
                                            <span class="cart-item-title">{{ $product['item']['name'] }}</span>
                                            <span class="cart-item-amount">{{ $product['qty'] }}X <span>
                                                    @if($product['item']['promotion_price']==0)
-                                                   {{ number_format($product['item']['unit_price']) }}@else
+                                                   {{ number_format($product['item']['unit_price']) }}
+                                                   @else
                                                    {{ number_format($product['item']['promotion_price']) }}
                                                    @endif
                                                </span></span>
@@ -75,7 +76,7 @@
 
                                    <div class="center">
                                        <div class="space10">&nbsp;</div>
-                                       <a href="" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
+                                       <a href="{{ route('showCart') }}" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
                                    </div>
                                </div>
                            </div>
@@ -117,7 +118,7 @@
 
                        <div class="center">
                            <div class="space10">&nbsp;</div>
-                           <a href="{{route('showCart')}}" class="beta-btn primary text-center">Checkout <i class="fa fa-chevron-right"></i></a>
+                           <a href="{{ route('showCart') }}" class="beta-btn primary text-center">Checkoutrftgre <i class="fa fa-chevron-right"></i></a>
                        </div>
                    </div>
                </div>
@@ -151,6 +152,22 @@
                    </ul>
                    <div class="clearfix"></div>
                </nav>
-           </div> <!-- .container -->
-       </div> <!-- .header-bottom -->
-   </div> <!-- #header -->
+           </div> 
+       </div> 
+   </div>
+
+
+   
+@section('js')
+<script>
+
+var message = "{{ session('message') }}";
+var error = "{{ session('error') }}";
+
+if (message) {
+    alert(message);
+} else if (error) {
+    alert(error);
+}
+</script>
+@endsection

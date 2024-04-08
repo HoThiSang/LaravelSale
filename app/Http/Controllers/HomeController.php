@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function showCart()
     {
         $products = Products::take(3)->get();
-        return view('checkout', compact('products'));
+        return view('pages/checkout', compact('products'));
        
     }
 

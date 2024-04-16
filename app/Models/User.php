@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -17,6 +19,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
     protected $fillable = [
         'name',
         'email',
@@ -41,4 +44,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function createNewUser($data)
+    {
+        DB::table($this->table)->insert($data);
+        $insertedData = DB::table($this->table)->where($data)->get();
+        return $insertedData;
+    }
+
+    public static function getUserById($id)
+    {
+        return static::find($id);
+    }
+
+    public function customer()
+    {
+        return $this->hasMany('App\Models\Customer');
+    }
 }

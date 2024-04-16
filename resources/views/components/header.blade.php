@@ -9,7 +9,8 @@
                </div>
                <div class="pull-right auto-width-right">
                    <ul class="top-details menu-beta l-inline">
-                       <li><a href="{{route('login')}}"><i class="fa fa-user"></i> Your Account</a></li>
+                       <li><a href="{{route('login')}}"><i class="fa fa-user"></i> Sign in</a></li>
+                       <li><a href="{{route('sign-up')}}"><i class="fa fa-user"></i> Sign up</a></li>
                        <li class="hidden-xs">
                            <select name="languages">
                                <option value="en">English</option>
@@ -42,7 +43,7 @@
                            <button class="fa fa-search" type="submit" id="searchsubmit"></button>
                        </form>
                    </div>
-
+                   <?php $totalPrice = 0; ?>
                    <div class="beta-comp">
                        @if(Session::has('cart'))
                        <div class="cart">
@@ -64,6 +65,7 @@
                                                    @else
                                                    {{ number_format($product['item']['promotion_price']) }}
                                                    @endif
+                                                   <?php $totalPrice =   $totalPrice + $product['price']  ?>
                                                </span></span>
                                        </div>
                                    </div>
@@ -71,12 +73,13 @@
                                @endforeach
 
                                <div class="cart-caption">
-                                   <div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">{{ $cart->totalPrice }}</span></div>
+                                   <div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">{{ number_format($totalPrice) }}</span></div>
                                    <div class="clearfix"></div>
 
                                    <div class="center">
                                        <div class="space10">&nbsp;</div>
-                                       <a href="{{ route('showCart') }}" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
+                                       <a href="{{ route('shopping-cart') }}" class="beta-btn primary text-center">Giỏ hàng <i class="fa fa-chevron-right"></i></a>
+                                       <a href="{{ route('checkout-page') }}" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
                                    </div>
                                </div>
                            </div>
@@ -118,7 +121,7 @@
 
                        <div class="center">
                            <div class="space10">&nbsp;</div>
-                           <a href="{{ route('showCart') }}" class="beta-btn primary text-center">Checkoutrftgre <i class="fa fa-chevron-right"></i></a>
+                           <a href="{{ route('shopping-cart') }}" class="beta-btn primary text-center">Checkout<i class="fa fa-chevron-right"></i></a>
                        </div>
                    </div>
                </div>
@@ -152,22 +155,21 @@
                    </ul>
                    <div class="clearfix"></div>
                </nav>
-           </div> 
-       </div> 
+           </div>
+       </div>
    </div>
 
 
-   
-@section('js')
-<script>
 
-var message = "{{ session('message') }}";
-var error = "{{ session('error') }}";
+   @section('js')
+   <script>
+       var message = "{{ session('message') }}";
+       var error = "{{ session('error') }}";
 
-if (message) {
-    alert(message);
-} else if (error) {
-    alert(error);
-}
-</script>
-@endsection
+       if (message) {
+           alert(message);
+       } else if (error) {
+           alert(error);
+       }
+   </script>
+   @endsection

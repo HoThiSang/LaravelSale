@@ -29,18 +29,31 @@
 				<div class="space20">&nbsp;</div>
 				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit ani m id est laborum.</p>
 				<div class="space20">&nbsp;</div>
-				<form action="#" method="post" class="contact-form">
+				<form action="{{ route('sendEmail') }}" method="post">
+					@csrf
 					<div class="form-block">
-						<input name="your-name" type="text" placeholder="Your Name (required)">
+						<input name="user_name" type="text" value="{{ old('user_name')}}" placeholder="Your Name ">
+						@error('user_name')
+						<span style="color: red;">{{$message}}</span>
+						@enderror
 					</div>
 					<div class="form-block">
-						<input name="your-email" type="email" placeholder="Your Email (required)">
+						<input name="email" type="email" value="{{ old('email')}}" placeholder="Your Email">
+						@error('email')
+						<span style="color: red;">{{$message}}</span>
+						@enderror
 					</div>
 					<div class="form-block">
-						<input name="your-subject" type="text" placeholder="Subject">
+						<input type="text" name="subject" value="{{ old('subject')}}" placeholder="Subject">
+						@error('subject')
+						<span style="color: red;">{{$message}}</span>
+						@enderror
 					</div>
 					<div class="form-block">
-						<textarea name="your-message" placeholder="Your Message"></textarea>
+						<textarea name="message" value="{{ old('message')}}" placeholder="Your Message"></textarea>
+						@error('message')
+						<span style="color: red;">{{$message}}</span>
+						@enderror
 					</div>
 					<div class="form-block">
 						<button type="submit" class="beta-btn primary">Send Message <i class="fa fa-chevron-right"></i></button>
@@ -75,5 +88,15 @@
 		</div>
 	</div> <!-- #content -->
 </div> <!-- .container -->
+@if(session('success'))
+<script>
+	alert("{{ session('success') }}");
+</script>
+@endif
 
+@if(session('error'))
+<script>
+	alert("{{ session('error') }}");
+</script>
+@endif
 @endsection

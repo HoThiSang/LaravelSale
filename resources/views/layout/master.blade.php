@@ -13,6 +13,17 @@
     <link rel="stylesheet" title="style" href="/source/assets/dest/css/style.css">
     <link rel="stylesheet" href="/source/assets/dest/css/animate.css">
     <link rel="stylesheet" title="style" href="/source/assets/dest/css/huong-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+
+
     @yield('css')
 </head>
 
@@ -33,15 +44,14 @@
     <script src="/source/assets/dest/vendors/dug/dug.js"></script>
     <script src="/source/assets/dest/js/scripts.min.js"></script>
 
+
     <!--customjs-->
     <script type="text/javascript">
         $(function() {
-            // this will get the full URL at the address bar
             var url = window.location.href;
 
-            // passes on every "a" tag
             $(".main-menu a").each(function() {
-                // checks if its the same on the address bar
+         
                 if (url == (this.href)) {
                     $(this).closest("li").addClass("active");
                     $(this).parents('li').addClass('parent-active');
@@ -80,22 +90,21 @@
         });
     </script>
     <script>
-        // Kiểm tra xem có thông báo thành công từ controller không
-var successMessage = "{{ session('success') }}";
-var errorMessage = "{{ session('error') }}";
 
-// Kiểm tra xem có thông báo thành công không
-if (successMessage) {
-    // Hiển thị hộp thoại thông báo thành công
-    alert(successMessage);
-}
+        var successMessage = "{{ session('success') }}";
+        var errorMessage = "{{ session('error') }}";
 
-// Kiểm tra xem có thông báo lỗi không
-if (errorMessage) {
-    // Hiển thị hộp thoại thông báo lỗi
-    alert(errorMessage);
-}
 
+        if (successMessage) {
+       
+            alert(successMessage);
+        }
+
+
+        if (errorMessage) {
+
+            alert(errorMessage);
+        }
     </script>
     @yield('js');
 </body>

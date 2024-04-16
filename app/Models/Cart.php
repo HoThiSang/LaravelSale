@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class Cart extends Model
 {
     use HasFactory;
@@ -52,5 +52,20 @@ class Cart extends Model
         $this->totalQty -= $this->items[$id]['qty'];
         $this->totalPrice -= $this->items[$id]['price'];
         unset($this->items[$id]);
+    }
+
+     public function updateProduct($id, $qty)
+    {
+        if (array_key_exists($id, $this->items)) {
+            $oldQty = $this->items[$id]['qty'];
+
+            $this->items[$id]['qty'] = $qty;
+            
+            $newPrice = $this->items[$id]['item']->unit_price * $qty;
+            $this->items[$id]['price'] = $newPrice;
+
+            $this->totalQty += ($qty - $oldQty);
+            $this->totalPrice += ($newPrice - $this->items[$id]['price']);
+        }
     }
 }

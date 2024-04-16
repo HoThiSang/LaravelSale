@@ -13,12 +13,7 @@ class HomeController extends Controller
         return view('pages/index', compact('products'));
     }
 
-    public function showCart()
-    {
-        $products = Products::take(3)->get();
-        return view('pages/checkout', compact('products'));
-       
-    }
+   
 
     public function login()
     {
